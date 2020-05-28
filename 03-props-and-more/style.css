@@ -1,0 +1,16 @@
+.Machine {
+	background: linear-gradient(to right, #238651, #0253f9);
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+
+.win {
+	font-weight: bold;
+	color: rgb(6, 196, 6);
+}
+
+.lose {
+	color: rgb(168, 1, 1);
+}
