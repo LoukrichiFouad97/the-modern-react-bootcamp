@@ -1,0 +1,23 @@
+.Pokemon {
+	background-color: #ccc;
+	padding: 10px;
+	width: 20%;
+	text-align: center;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	box-shadow: 7px 10px 12px -5px rgba(0, 0, 0, 0.56);
+	position: relative;
+}
+
+.Pokemon-name {
+	color: #f28;
+}
+
+.Pokemon-img {
+	max-width: 100%;
+	transition: all 0.4s ease;
+}
+
+.Pokemon-img:hover {
+	transform: scale(1.2);
+}
