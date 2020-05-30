@@ -21,11 +21,4 @@ class Pokecard extends Component {
 	}
 }
 
-Pokecard.defaultProps = {
-	id: 4,
-	name: "Charmander",
-	type: "fire",
-	experience: 45,
-};
-
 export default Pokecard;
