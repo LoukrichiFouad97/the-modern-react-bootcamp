@@ -1,11 +1,11 @@
 import React from "react";
-import RandomNumber from "./RandomNumber";
+import RollDice from "./components/RollDice";
 import "./App.css";
 
 function App() {
 	return (
 		<div className="App">
-			<RandomNumber />
+			<RollDice />
 		</div>
 	);
 }
