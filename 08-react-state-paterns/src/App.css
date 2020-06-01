@@ -1,0 +1,37 @@
+.Lottery-container {
+	background-color: #ccc;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 3rem;
+	margin: 10px;
+}
+
+.Lottery-container > div {
+  display: flex;
+}
+
+h2 {
+	margin-bottom: 50px;
+}
+
+/* span {
+	margin: 10px;
+} */
+
+.btn {
+	margin-top: 50px;
+}
+
+.LotteryBall {
+	color: #fff;
+	background-color: tomato;
+	padding: 30px;
+	border-radius: 50%;
+  font-weight: bold;
+  width: 3em;
+  height: 2.25em;
+  margin: 10px;
+  
+}
