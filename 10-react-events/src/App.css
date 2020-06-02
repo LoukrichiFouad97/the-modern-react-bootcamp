@@ -1,0 +1,10 @@
+
+
+.button-list {
+	background-color: #f80;
+	width: 600px;
+	margin: 100px auto;
+	padding: 50px;
+	display: flex;
+	justify-content: space-evenly;
+}
