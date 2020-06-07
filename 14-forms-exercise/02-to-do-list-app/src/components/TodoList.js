@@ -20,6 +20,12 @@ class TodoList extends Component {
 		this.setState({ tasks: [...this.state.tasks, task] });
 	};
 
+	componentDidUpdate(prevProp, prevState) {
+		console.log("inside of componentDidUpdate");
+		console.log(prevState);
+		console.log(this.state.tasks);
+	}
+
 	toggleCompletion = (id) => {
 		const isCompelted = this.state.tasks.map((task) => {
 			if (task.id === id) {
