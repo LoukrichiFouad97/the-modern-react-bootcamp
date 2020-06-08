@@ -1,0 +1,9 @@
+.App {
+	text-align: center;
+}
+
+#id {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
