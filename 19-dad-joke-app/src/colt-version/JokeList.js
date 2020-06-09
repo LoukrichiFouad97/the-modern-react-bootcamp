@@ -13,7 +13,9 @@ class JokeList extends Component {
 		super(props);
 		this.state = {
 			jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]"),
+			loading: false,
 		};
+		this.seenJokes = new Set(this.state.jokes.map((j) => j.text));
 	}
 
 	componentDidMount() {
@@ -23,16 +25,34 @@ class JokeList extends Component {
 	}
 
 	async getJokes() {
-		const jokes = [];
-		const url = "https://icanhazdadjoke.com/";
-		while (jokes.length < this.props.maxJokeToGet) {
-			const JokeReq = await axios.get(url, {
-				headers: { accept: "application/json" },
-			});
-			jokes.push({ id: uuid(), joke: JokeReq.data.joke, votes: 0 });
+		try {
+			const jokes = [];
+			const url = "https://icanhazdadjoke.com/";
+
+			while (jokes.length < this.props.maxJokeToGet) {
+				const JokeReq = await axios.get(url, {
+					headers: { accept: "application/json" },
+				});
+				let newJoke = JokeReq.data.joke;
+				if (!this.seenJokes.has(newJoke)) {
+					jokes.push({ id: uuid(), joke: JokeReq.data.joke, votes: 0 });
+				} else {
+					console.log("DOUBLICATE JOKE FOUND");
+					console.log(newJoke);
+				}
+			}
+			this.setState(
+				(st) => ({
+					loading: false,
+					jokes: [...st.jokes, ...jokes],
+				}),
+				() =>
+					window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
+			);
+			window.localStorage.setItem("jokes", JSON.stringify(jokes));
+		} catch (err) {
+			alert(err);
 		}
-		this.setState({ jokes: jokes });
-		window.localStorage.setItem("jokes", JSON.stringify(jokes));
 	}
 
 	handleVoting = (id, delta) => {
@@ -42,15 +62,27 @@ class JokeList extends Component {
 					j.id === id ? { ...j, votes: j.votes + delta } : j
 				),
 			}),
-			() => localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
+			() =>
+				window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
 		);
 	};
 
 	handleClick = () => {
+		this.setState({ loading: true });
 		this.getJokes();
 	};
 
 	render() {
+		if (this.state.loading) {
+			return (
+				<div className="JokeList-spinner">
+					<i className="far fa-8x fa-laugh fa-spin"></i>
+					<h1 className="JokeList-title">Loading...</h1>
+				</div>
+			);
+		}
+		let jokes = this.state.jokes.sort((a, b) => b.votes - a.votes);
+
 		return (
 			<div className="JokeList">
 				<div className="JokeList-sidebar">
@@ -68,7 +100,7 @@ class JokeList extends Component {
 				</div>
 
 				<div className="JokeList-jokes">
-					{this.state.jokes.map((jk) => {
+					{jokes.map((jk) => {
 						return (
 							<div>
 								<Joke
