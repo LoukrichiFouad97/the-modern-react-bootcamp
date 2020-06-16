@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import Dog from "./components/Dog";
 import Dogs from "./components/Dogs";
 import "./App.css";
+import BTS from "./components/bts";
 
 class App extends Component {
 	static defaultProps = {
@@ -55,6 +56,7 @@ class App extends Component {
 		};
 		return (
 			<div className="App">
+				<BTS />
 				<Nav dogName={dogNames} />
 				<Switch>
 					<Route
@@ -63,7 +65,12 @@ class App extends Component {
 						render={() => <Dogs dogs={this.props.dogs} />}
 					/>
 					<Route exact path="/dogs/:name" render={getDog} />
-					<Route exact render={() => <h1 className='text-center text-danger'>Error Page Not Found</h1>} />
+					<Route
+						exact
+						render={() => (
+							<h1 className="text-center text-danger">Error Page Not Found</h1>
+						)}
+					/>
 				</Switch>
 			</div>
 		);
